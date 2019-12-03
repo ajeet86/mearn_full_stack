@@ -8,44 +8,60 @@ var User = function(user){
 };
 
 
-User.findOne=function findUser(newUser, result){
-    console.log('aj');
-    console.log(newUser.email);
-    return(1);
-    
-    //demo
-    /*
-    var userEmail=newTask.task.email;
-    console.log(newTask); 
-    sql.query("Select email from users where email = ? ", userEmail, function (err, res) {             
+User.findOne=function findUser(userdata, result){
+console.log(userdata.email);
+    return new Promise( ( resolve, reject ) => {
+    sql.query("Select email from user where email = ? ", userdata.email, function (err, res) {             
       if(err) {
-          console.log("error: ", err);
-          result(err, null);
+          console.log("error user model: ", err);
+          return reject( err );
       }
       else{
-          result(null, res);
+          
+         return resolve(res);
       }
-  });  */ 
+  }); 
+    });  
     
   },
 
   User.save= function save(newUser, result){
-    console.log('aj save');
-    console.log(newUser);
-    sql.query("INSERT INTO user(name,email,password,status) VALUES(?,?,?,?)", Object.values(newUser), function (err, res) {
+    return new Promise( ( resolve, reject ) => {
+   sql.query("INSERT INTO user(name,email,password,status) VALUES(?,?,?,?)", Object.values(newUser), function (err, res) {
 
         if(err) {
-        console.log("error: ", err);
-        return(0);
+       // console.log("error: ", err);
+        return reject( err );
         }
         else{
-        console.log(res.insertId);
-        return(res.insertId);
+       // console.log('ajajaja');
+        //console.log(res.insertId);
+        return resolve(res.insertId);
         
         }
-        });   
+        });  
+    } );    
+       // console.log('gjgjgjg');
+       // console.log(abc);
     
   }
-
+  User.save1= function save1(newUser, result){
+    sql.query("INSERT INTO user(name,email,password,status) VALUES(?,?,?,?)", Object.values(newUser), function (err, res) {
+ 
+         if(err) {
+         console.log("error: ", err);
+         return(0);
+         }
+         else{
+         console.log('ajajaja');
+         console.log(res.insertId);
+         return(1);
+         
+         }
+         });  
+        // console.log('gjgjgjg');
+        // console.log(abc);
+     
+   }
 
 module.exports = User;

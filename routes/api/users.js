@@ -39,9 +39,8 @@ router.post('/register', [
         try{
             console.log(req.body);
             let user = await User.findOne({ email });
-           
-
-            if (user) {
+          
+            if (user && user.length) {
                 return res
                   .status(400)
                   .json({ errors: [{ msg: 'User already exists' }] });
@@ -58,9 +57,24 @@ router.post('/register', [
                 user.status = '1';
                // console.log(user);
              let user_id=  await User.save(user);
-             
+              //console.log('asasasa'+user_id);
+             const payload = {
+                user: {
+                  id: user_id
+                }
+              };
+        
+              jwt.sign(
+                payload,
+                config.get('jwtSecret'),
+                { expiresIn: 360000 },
+                (err, token) => {
+                  if (err) throw err;
+                  res.json({payload,token });
+                }
+              );
 
-                res.send('user register');
+               // res.send('user register');
         }catch (err) {
             console.error(err.message);
             res.status(500).send('Server error');
