@@ -1,0 +1,8 @@
+
+==========================================server configuration==========================
+run server =>npm run server
+
+
+===============client react =============================================react setup in client
+
+npx create-react-app client
