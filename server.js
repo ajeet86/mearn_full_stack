@@ -1,7 +1,8 @@
 const express =require('express');
 const app =express();
 const connectDB=require('./config/db.js');
-
+var cors = require('cors');
+app.use(cors())
 
 //init middeleware 
 app.use(express.json({extends: false}));
