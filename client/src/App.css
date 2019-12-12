@@ -70,6 +70,10 @@ img {
   color: var(--primary-color);
 }
 
+.container1{
+  margin-top:100px ;
+}
+
 .text-dark {
   color: var(--dark-color);
 }

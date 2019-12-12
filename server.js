@@ -9,6 +9,7 @@ app.use(express.json({extends: false}));
 // this use full body.request worrking parser is very needfull.
 
 app.get('/',(req,res)=>res.send('api runing'));
+app.use('/api/auth',require('./routes/api/auth.js'));
 
 app.use('/api/users',require('./routes/api/users.js'));
 app.use('/api/posts',require('./routes/api/posts.js'));

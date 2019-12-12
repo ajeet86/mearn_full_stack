@@ -7,5 +7,6 @@ const router= express.Router();
 // @access   Public
 
 router.get('/',(req,res)=>res.send('auth route'));
+router.get('/test', (req, res) => res.json({ msg: 'Users Works' }));
 
 module.exports = router;

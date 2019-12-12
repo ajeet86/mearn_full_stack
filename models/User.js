@@ -45,23 +45,6 @@ console.log(userdata.email);
        // console.log(abc);
     
   }
-  User.save1= function save1(newUser, result){
-    sql.query("INSERT INTO user(name,email,password,status) VALUES(?,?,?,?)", Object.values(newUser), function (err, res) {
  
-         if(err) {
-         console.log("error: ", err);
-         return(0);
-         }
-         else{
-         console.log('ajajaja');
-         console.log(res.insertId);
-         return(1);
-         
-         }
-         });  
-        // console.log('gjgjgjg');
-        // console.log(abc);
-     
-   }
 
 module.exports = User;
