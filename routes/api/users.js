@@ -80,9 +80,74 @@ router.post('/register', [
             res.status(500).send('Server error');
           }
 
-}
+});
 
-);
+// @route   GET api/users/login
+// @desc    Login User / Returning JWT Token
+// @access  Public
+
+
+
+router.post('/login', [
+  check('email', 'Please include a valid email').isEmail(),
+  check(
+    'password',
+    'Please enter a password with 3 or more characters'
+  ).isLength({ min: 3 })
+],async(req,res)=>{
+   
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  const { email, password } = req.body;
+
+      try{
+          console.log(req.body);
+          let user = await User.findOne({ email });
+       // console.log(user);
+          if (user.length==0) {
+              return res
+                .status(400)
+                .json({ errors: [{ msg: 'User not found' }] });
+            }else{
+             //console.log(user[0].id);
+             bcrypt.compare(password, user[0].password).then(isMatch => {
+              if (isMatch) {
+                const payload = { id: user[0].id, name: user[0].name }; // Create JWT Payload
+
+                // Sign Token
+                jwt.sign(
+                  payload,
+                  config.get('jwtSecret'),
+                  { expiresIn: 3600 },
+                  (err, token) => {
+                    res.json({
+                      success: true,
+                      token: 'Bearer ' + token
+                    });
+                  }
+                );
+              }else{
+                
+                return res
+                .status(400)
+                .json({ errors: [{ msg: 'Password not mactched'}] });
+              }
+
+            });
+
+          }
+            // Check Password
+    
+             // res.send('user register');
+      }catch (err) {
+          console.error(err.message);
+          res.status(500).send('Server error in login process');
+        }
+
+});
 
 
 module.exports = router;

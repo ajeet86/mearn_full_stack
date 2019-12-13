@@ -1,8 +1,11 @@
 import React,{useState} from 'react';
-import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
+import {Link,Redirect} from 'react-router-dom';
+import {login} from '../../actions/auth';
+import PropTypes from 'prop-types';
 
 
- const Login = () => {
+ const Login = ({ login ,isAuthenticated}) => {
        const [formData,setFormData]=useState({
            email:'',
            password:''
@@ -10,17 +13,21 @@ import {Link} from 'react-router-dom';
        const {email,password}=formData;
        const onChange= e =>
        setFormData({...formData,[e.target.name]:e.target.value});
+       
        const onSubmit= async e=>{
            e.preventDefault();
-           if(password){
-                console.log('password not match');
-           }else{
-            console.log('sucess');
-            
-           }
+           alert('click works');
+           login({email,password});
            
        }
        
+       console.log('ajajaj'+isAuthenticated);
+       //redirect if login
+       if(isAuthenticated){
+          return <Redirect  to='/dashboard' />
+       }
+
+
     return (
     <section className="container">
     <h1 className="large text-primary">Sign In</h1>
@@ -59,6 +66,13 @@ import {Link} from 'react-router-dom';
       </section>
     )
 }
-export default Login;
+Login.propTypes = {
+  login:PropTypes.func.isRequired,
+  isAuthenticated:PropTypes.bool
+}
+const mapStateToProps= state =>({
+  isAuthenticated:state.auth.isAuthenticated
+})
+export default connect(mapStateToProps,{login})(Login);
 
 

@@ -11,7 +11,7 @@ var User = function(user){
 User.findOne=function findUser(userdata, result){
 console.log(userdata.email);
     return new Promise( ( resolve, reject ) => {
-    sql.query("Select email from user where email = ? ", userdata.email, function (err, res) {             
+    sql.query("Select * from user where email = ? ", userdata.email, function (err, res) {             
       if(err) {
           console.log("error user model: ", err);
           return reject( err );
