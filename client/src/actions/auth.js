@@ -19,7 +19,7 @@ export const loadUser= ()=> async dispatch=>{
     }
     try{
          //console.log('zzz'); return true;
-         const res =await axios.get('http://localhost:5000/api/auth/test');
+         const res =await axios.get('http://localhost:5000/api/auth');
          dispatch({
              type:USER_LOADED,
              payload:res.data

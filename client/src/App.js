@@ -6,6 +6,7 @@ import Landing from './components/layout/Landing';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Alert from './components/layout/Alert';
+import Dashboard from './dashboard/Dashboard';
 
 
 //redux
@@ -18,6 +19,7 @@ import {loadUser} from './actions/auth';
 
 
 if(localStorage.token){
+  console.log('ap js ');
   setAuthToken(localStorage.token);
   }
 const App = ()=>{
@@ -35,6 +37,7 @@ const App = ()=>{
     <switch>
     <Route exact path='/register' component={Register} />
     <Route exact path='/login' component={Login} />
+    <Route exact path='/dashboard' component={Dashboard} />
     </switch>
   </section>
 </Fragment>

@@ -6,17 +6,21 @@ import PropTypes from 'prop-types';
 
  const Navbar = ({auth:{isAuthenticated,loading},logout}) => {
     const authLinks = (
+      
         <ul className="navbar-nav ml-auto">
-         
-          <li className="nav-item">
-            <a
-              href="#!" onClick={logout}
-              className="nav-link"
-            >
-              
-              Logout
-            </a>
-          </li>
+<li><a href="profiles.html">Contractor</a></li>
+<li>
+          |
+          <Link to='/dashboard'><i class="fas fa-user"></i>
+            <span class="hide-sm">Dashboard</span></Link>
+        </li>
+        <li>
+          <a  href="#!" onClick={logout} title="Logout">
+            <i class="fas fa-sign-out-alt"></i>
+            <span class="hide-sm">Logout</span></a
+          >
+        </li>
+        
         </ul>
       );
   
@@ -42,8 +46,10 @@ import PropTypes from 'prop-types';
     return (
         <nav className="navbar bg-dark">
         <h1>
-        <Link to="/"><i className="fas fa-code"></i> JOBTheBid</Link>
+        <Link to="/"> JOBTheBid</Link>
         </h1>
+    {/*<p>ajeet {isAuthenticated}</p> */}
+    
     {!loading &&(<Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>)}
         </nav>
     )

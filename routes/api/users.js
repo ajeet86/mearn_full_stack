@@ -37,7 +37,7 @@ router.post('/register', [
     const { name, email, password,status=1 } = req.body;
 
         try{
-            console.log(req.body);
+            //console.log(req.body);
             let user = await User.findOne({ email });
           
             if (user && user.length) {
@@ -125,7 +125,7 @@ router.post('/login', [
                   (err, token) => {
                     res.json({
                       success: true,
-                      token: 'Bearer ' + token
+                      token: token
                     });
                   }
                 );

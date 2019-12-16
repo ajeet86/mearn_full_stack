@@ -25,6 +25,23 @@ console.log(userdata.email);
     
   },
 
+  User.findById=function findById(id, result){
+    console.log(id);
+        return new Promise( ( resolve, reject ) => {
+        sql.query("Select id,name,email from user where id = ? ", id, function (err, res) {             
+          if(err) {
+              console.log("error user model: ", err);
+              return reject( err );
+          }
+          else{
+              
+             return resolve(res);
+          }
+      }); 
+        });  
+        
+      },
+
   User.save= function save(newUser, result){
     return new Promise( ( resolve, reject ) => {
    sql.query("INSERT INTO user(name,email,password,status) VALUES(?,?,?,?)", Object.values(newUser), function (err, res) {
